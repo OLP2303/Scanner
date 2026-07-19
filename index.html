@@ -10,7 +10,7 @@
 <body style="margin: 0; padding: 0; background-color: #000;">
 
   
-    <div id="reader" style="width: 20vh; height: 20vh;"></div>
+   <div id="reader" style="width: 100%; max-width: 500px; margin: 0 auto;"></div>
     
     <script>
         
@@ -27,11 +27,25 @@
             html5QrCode.stop();
             tg.sendData(decodedText); 
         };
-        html5QrCode.start(
-            { facingMode: "environment" },
-            { fps: 10, qrbox: { width: 100, height: 300 } },
-            onScanSuccess
-        );
+        // Налаштування для старту камери
+html5QrCode.start(
+    { facingMode: "environment" }, 
+    {
+        fps: 10,
+        
+        qrbox: function(viewfinderWidth, viewfinderHeight) {
+            return {
+               
+                width: viewfinderWidth * 0.8,
+               
+                height: 150 
+            };
+        },
+    
+        aspectRatio: 1.0 
+    },
+    onScanSuccess
+);
     </script>
 </body>
 </html>
